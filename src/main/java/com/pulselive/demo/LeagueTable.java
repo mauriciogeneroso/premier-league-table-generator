@@ -20,10 +20,10 @@ public class LeagueTable {
    * @return
    */
   public List<LeagueTableEntry> getTableEntries() {
-    List<String> teamsNames = teamsNames();
+    List<String> teamNames = getUniqueTeamNames();
     List<LeagueTableEntry> leagueTableEntries = new ArrayList<>();
 
-    for (String teamName : teamsNames) {
+    for (String teamName : teamNames) {
       int played = getPlayed(teamName);
       int won = getWon(teamName);
       int drawn = getDrawn(teamName);
@@ -45,27 +45,19 @@ public class LeagueTable {
     return leagueTableEntries;
   }
 
-  private List<String> teamsNames() {
-    List<String> homeTeams = matches
+  private List<String> getUniqueTeamNames() {
+    return matches
         .stream()
-        .map(Match::getHomeTeam)
+        .flatMap(t -> Stream.of(t.getHomeTeam(), t.getAwayTeam()))
         .distinct()
         .collect(Collectors.toList());
-
-    List<String> awayTeams = matches
-        .stream()
-        .map(Match::getAwayTeam)
-        .distinct()
-        .collect(Collectors.toList());
-
-    return Stream.concat(homeTeams.stream(), awayTeams.stream())
-        .distinct().collect(Collectors.toList());
   }
 
   private int getPlayed(String teamName) {
     return (int) matches
         .stream()
-        .filter(t -> teamName.equals(t.getHomeTeam()) || teamName.equals(t.getAwayTeam())).count();
+        .filter(t -> teamName.equals(t.getHomeTeam()) || teamName.equals(t.getAwayTeam()))
+        .count();
   }
 
   private int getWon(String teamName) {
@@ -96,34 +88,26 @@ public class LeagueTable {
   }
 
   private int getGoalsFor(String teamName) {
-    int goalsHome = matches
-        .stream()
-        .filter(t -> teamName.equals(t.getHomeTeam()))
-        .map(Match::getHomeScore)
-        .reduce(0, Integer::sum);
-
-    int goalsAway = matches
-        .stream()
-        .filter(t -> teamName.equals(t.getAwayTeam()))
-        .map(Match::getAwayScore)
-        .reduce(0, Integer::sum);
-
-    return goalsHome + goalsAway;
+    return matches.stream()
+        .filter(t -> teamName.equals(t.getHomeTeam()) || teamName.equals(t.getAwayTeam()))
+        .map(t -> {
+              if (teamName.equals(t.getHomeTeam())) {
+                return t.getHomeScore();
+              }
+              return t.getAwayScore();
+            }
+        ).reduce(0, Integer::sum);
   }
 
   private int getGoalsAgainst(String teamName) {
-    int goalsAgainstInHome = matches
-        .stream()
-        .filter(t -> teamName.equals(t.getHomeTeam()))
-        .map(Match::getAwayScore)
-        .reduce(0, Integer::sum);
-
-    int goalsAgainstInAway = matches
-        .stream()
-        .filter(t -> teamName.equals(t.getAwayTeam()))
-        .map(Match::getHomeScore)
-        .reduce(0, Integer::sum);
-
-    return goalsAgainstInHome + goalsAgainstInAway;
+    return matches.stream()
+        .filter(t -> teamName.equals(t.getHomeTeam()) || teamName.equals(t.getAwayTeam()))
+        .map(t -> {
+              if (teamName.equals(t.getHomeTeam())) {
+                return t.getAwayScore();
+              }
+              return t.getHomeScore();
+            }
+        ).reduce(0, Integer::sum);
   }
 }

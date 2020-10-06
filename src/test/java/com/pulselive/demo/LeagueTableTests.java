@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 
-public class MatchTests {
+public class LeagueTableTests {
 
   @Test
   public void test() {
