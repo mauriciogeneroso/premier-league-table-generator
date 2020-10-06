@@ -9,8 +9,15 @@ public class LeagueTableTests {
 
   private static final boolean PRINT_TABLE_ON_CONSOLE = true;
 
+  /**
+   * The data for this test was got from the official Premier league website available in these
+   * links: https://www.premierleague.com/tables and https://www.premierleague.com/results
+   * <p>
+   * e.g: These results will be changed on the website because new matches will be played. These
+   * results was from 6th October.
+   */
   @Test
-  public void officialTest() {
+  public void shouldHasTheOfficialResult() {
     // Arrange
     List<Match> matches = Arrays.asList(
         new Match(Team.WEST_HAM.getName(), Team.NEWCASTLE.getName(), 0, 2),
@@ -71,19 +78,19 @@ public class LeagueTableTests {
         new LeagueTableEntry(
             Team.ASTON_VILLA.getName(), 3, 3, 0, 0, 11, 2, 9, 9),
         new LeagueTableEntry(
-            Team.LEICESTER.getName(),4, 3, 0, 1, 12, 7, 5, 9),
+            Team.LEICESTER.getName(), 4, 3, 0, 1, 12, 7, 5, 9),
         new LeagueTableEntry(
             Team.ARSENAL.getName(), 4, 3, 0, 1, 8, 5, 3, 9),
         new LeagueTableEntry(
             Team.LIVERPOOL.getName(), 4, 3, 0, 1, 11, 11, 0, 9),
         new LeagueTableEntry(
-            Team.SPURS.getName(),4, 2, 1, 1, 12, 5, 7, 7),
+            Team.SPURS.getName(), 4, 2, 1, 1, 12, 5, 7, 7),
         new LeagueTableEntry(
             Team.CHELSEA.getName(), 4, 2, 1, 1, 10, 6, 4, 7),
         new LeagueTableEntry(
             Team.LEEDS.getName(), 4, 2, 1, 1, 9, 8, 1, 7),
         new LeagueTableEntry(
-            Team.NEWCASTLE.getName(),4, 2, 1, 1, 6, 5, 1, 7),
+            Team.NEWCASTLE.getName(), 4, 2, 1, 1, 6, 5, 1, 7),
         new LeagueTableEntry(
             Team.WEST_HAM.getName(), 4, 2, 0, 2, 8, 4, 4, 6),
         new LeagueTableEntry(
@@ -251,17 +258,22 @@ public class LeagueTableTests {
     for (int i = 0; i < expectedTableEntries.size(); i++) {
       Assert.assertEquals(expectedTableEntries.get(i).getTeamName(),
           resultedTableEntries.get(i).getTeamName());
-      Assert.assertEquals(expectedTableEntries.get(i).getPlayed(), resultedTableEntries.get(i).getPlayed());
-      Assert.assertEquals(expectedTableEntries.get(i).getWon(), resultedTableEntries.get(i).getWon());
-      Assert.assertEquals(expectedTableEntries.get(i).getDrawn(), resultedTableEntries.get(i).getDrawn());
-      Assert.assertEquals(expectedTableEntries.get(i).getLost(), resultedTableEntries.get(i).getLost());
+      Assert.assertEquals(expectedTableEntries.get(i).getPlayed(),
+          resultedTableEntries.get(i).getPlayed());
+      Assert
+          .assertEquals(expectedTableEntries.get(i).getWon(), resultedTableEntries.get(i).getWon());
+      Assert.assertEquals(expectedTableEntries.get(i).getDrawn(),
+          resultedTableEntries.get(i).getDrawn());
+      Assert.assertEquals(expectedTableEntries.get(i).getLost(),
+          resultedTableEntries.get(i).getLost());
       Assert.assertEquals(expectedTableEntries.get(i).getGoalsFor(),
           resultedTableEntries.get(i).getGoalsFor());
       Assert.assertEquals(expectedTableEntries.get(i).getGoalsAgainst(),
           resultedTableEntries.get(i).getGoalsAgainst());
       Assert.assertEquals(expectedTableEntries.get(i).getGoalDifference(),
           resultedTableEntries.get(i).getGoalDifference());
-      Assert.assertEquals(expectedTableEntries.get(i).getPoints(), resultedTableEntries.get(i).getPoints());
+      Assert.assertEquals(expectedTableEntries.get(i).getPoints(),
+          resultedTableEntries.get(i).getPoints());
     }
   }
 
