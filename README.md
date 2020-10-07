@@ -94,7 +94,7 @@ About the small methods:
    
 ### Tests
 
-It was included in `build.gradle` the `jacoco plugin` to see the test coverage and tests results.
+It was included in `build.gradle` the `jacoco plugin` to see the test coverage and test results.
 
 e.g.: Run `./gradlew build jacocoTestReport` to generate the reports and access them in `./build/reports/jacoco/test/html/index.html` and `./build/reports/jacoco/tests/test/index.html`.
 
