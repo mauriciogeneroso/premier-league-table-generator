@@ -1,11 +1,14 @@
 package com.pulselive.demo;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.Test;
 
-public class LeagueTableTests {
+public class LeagueTableTests
+{
 
   private static final boolean PRINT_TABLE_ON_CONSOLE = true;
 
@@ -17,8 +20,10 @@ public class LeagueTableTests {
    * results was from 6th October.
    */
   @Test
-  public void shouldHasTheOfficialResult() {
+  public void shouldHasTheOfficialResult()
+  {
     // Arrange
+    //@formatter:off
     List<Match> matches = Arrays.asList(
         new Match(Team.WEST_HAM.getName(), Team.NEWCASTLE.getName(), 0, 2),
         new Match(Team.LIVERPOOL.getName(), Team.LEEDS.getName(), 4, 3),
@@ -70,8 +75,6 @@ public class LeagueTableTests {
         new Match(Team.LEICESTER.getName(), Team.WEST_HAM.getName(), 0, 3)
     );
 
-    LeagueTable leagueTable = new LeagueTable(matches);
-
     List<LeagueTableEntry> expectedTableEntries = Arrays.asList(
         new LeagueTableEntry(
             Team.EVERTON.getName(), 4, 4, 0, 0, 12, 5, 7, 12),
@@ -114,6 +117,9 @@ public class LeagueTableTests {
         new LeagueTableEntry(
             Team.FULHAM.getName(), 4, 0, 0, 4, 3, 11, -8, 0)
     );
+    //@formatter:on
+
+    LeagueTable leagueTable = new LeagueTable(matches);
 
     // Act
     List<LeagueTableEntry> resultedTableEntries = leagueTable.getTableEntries();
@@ -123,8 +129,10 @@ public class LeagueTableTests {
   }
 
   @Test
-  public void shouldOrderLeagueTableByTotalPoints() {
+  public void shouldOrderLeagueTableByTotalPoints()
+  {
     // Arrange
+    //@formatter:off
     List<Match> matches = Arrays.asList(
         new Match(Team.ARSENAL.getName(), Team.LIVERPOOL.getName(), 0, 3),
         new Match(Team.LIVERPOOL.getName(), Team.FULHAM.getName(), 3, 1),
@@ -132,8 +140,6 @@ public class LeagueTableTests {
         new Match(Team.FULHAM.getName(), Team.ARSENAL.getName(), 0, 1),
         new Match(Team.SOUTHAMPTON.getName(), Team.ARSENAL.getName(), 2, 2)
     );
-
-    LeagueTable leagueTable = new LeagueTable(matches);
 
     List<LeagueTableEntry> expectedTableEntries = Arrays.asList(
         new LeagueTableEntry(
@@ -145,6 +151,9 @@ public class LeagueTableTests {
         new LeagueTableEntry(
             Team.FULHAM.getName(), 2, 0, 0, 2, 1, 4, -3, 0)
     );
+    //@formatter:on
+
+    LeagueTable leagueTable = new LeagueTable(matches);
 
     // Act
     List<LeagueTableEntry> resultedTableEntries = leagueTable.getTableEntries();
@@ -154,16 +163,16 @@ public class LeagueTableTests {
   }
 
   @Test
-  public void shouldOrderLeagueTableByGoalDifference() {
+  public void shouldOrderLeagueTableByGoalDifference()
+  {
     // Arrange
+    //@formatter:off
     List<Match> matches = Arrays.asList(
         new Match(Team.WEST_HAM.getName(), Team.MAN_UTD.getName(), 2, 0),
         new Match(Team.WEST_HAM.getName(), Team.FULHAM.getName(), 1, 0),
         new Match(Team.SHEFFIELD_UTD.getName(), Team.MAN_UTD.getName(), 1, 0),
         new Match(Team.SHEFFIELD_UTD.getName(), Team.FULHAM.getName(), 1, 0)
     );
-
-    LeagueTable leagueTable = new LeagueTable(matches);
 
     List<LeagueTableEntry> expectedTableEntries = Arrays.asList(
         new LeagueTableEntry(
@@ -175,6 +184,9 @@ public class LeagueTableTests {
         new LeagueTableEntry(
             Team.MAN_UTD.getName(), 2, 0, 0, 2, 0, 3, -3, 0)
     );
+    //@formatter:on
+
+    LeagueTable leagueTable = new LeagueTable(matches);
 
     // Act
     List<LeagueTableEntry> resultedTableEntries = leagueTable.getTableEntries();
@@ -184,16 +196,16 @@ public class LeagueTableTests {
   }
 
   @Test
-  public void shouldOrderLeagueTableByGoalsScored() {
+  public void shouldOrderLeagueTableByGoalsScored()
+  {
     // Arrange
+    //@formatter:off
     List<Match> matches = Arrays.asList(
         new Match(Team.MAN_UTD.getName(), Team.WEST_HAM.getName(), 3, 1),
         new Match(Team.MAN_UTD.getName(), Team.FULHAM.getName(), 2, 1),
         new Match(Team.SHEFFIELD_UTD.getName(), Team.WEST_HAM.getName(), 2, 1),
         new Match(Team.SHEFFIELD_UTD.getName(), Team.FULHAM.getName(), 2, 0)
     );
-
-    LeagueTable leagueTable = new LeagueTable(matches);
 
     List<LeagueTableEntry> expectedTableEntries = Arrays.asList(
         new LeagueTableEntry(
@@ -205,6 +217,9 @@ public class LeagueTableTests {
         new LeagueTableEntry(
             Team.FULHAM.getName(), 2, 0, 0, 2, 1, 4, -3, 0)
     );
+    //@formatter:on
+
+    LeagueTable leagueTable = new LeagueTable(matches);
 
     // Act
     List<LeagueTableEntry> resultedTableEntries = leagueTable.getTableEntries();
@@ -214,16 +229,16 @@ public class LeagueTableTests {
   }
 
   @Test
-  public void shouldOrderLeagueTableByTeamName() {
+  public void shouldOrderLeagueTableByTeamName()
+  {
     // Arrange
+    //@formatter:off
     List<Match> matches = Arrays.asList(
         new Match(Team.FULHAM.getName(), Team.WEST_HAM.getName(), 2, 0),
         new Match(Team.FULHAM.getName(), Team.ARSENAL.getName(), 2, 0),
         new Match(Team.MAN_CITY.getName(), Team.WEST_HAM.getName(), 2, 0),
         new Match(Team.MAN_CITY.getName(), Team.ARSENAL.getName(), 2, 0)
     );
-
-    LeagueTable leagueTable = new LeagueTable(matches);
 
     List<LeagueTableEntry> expectedTableEntries = Arrays.asList(
         new LeagueTableEntry(
@@ -235,6 +250,9 @@ public class LeagueTableTests {
         new LeagueTableEntry(
             Team.WEST_HAM.getName(), 2, 0, 0, 2, 0, 4, -4, 0)
     );
+    //@formatter:on
+
+    LeagueTable leagueTable = new LeagueTable(matches);
 
     // Act
     List<LeagueTableEntry> resultedTableEntries = leagueTable.getTableEntries();
@@ -244,43 +262,46 @@ public class LeagueTableTests {
   }
 
   private void assertResultedTableEntriesWithExpectedTableEntries(
-      List<LeagueTableEntry> expectedTableEntries, List<LeagueTableEntry> resultedTableEntries) {
+      List<LeagueTableEntry> expectedTableEntries, List<LeagueTableEntry> resultedTableEntries)
+  {
 
-    if (expectedTableEntries.size() != resultedTableEntries.size()) {
-      Assert.fail(
-          "The expected table entries and the resulted table entries don't have the same size");
+    if (expectedTableEntries.size() != resultedTableEntries.size())
+    {
+      fail("The expected table entries and the resulted table entries don't have the same size");
     }
 
-    if (PRINT_TABLE_ON_CONSOLE) {
+    if (PRINT_TABLE_ON_CONSOLE)
+    {
       printTableResultOnConsole(resultedTableEntries);
     }
 
-    for (int i = 0; i < expectedTableEntries.size(); i++) {
-      Assert.assertEquals(expectedTableEntries.get(i).getTeamName(),
+    for (int i = 0; i < expectedTableEntries.size(); i++)
+    {
+      assertEquals(expectedTableEntries.get(i).getTeamName(),
           resultedTableEntries.get(i).getTeamName());
-      Assert.assertEquals(expectedTableEntries.get(i).getPlayed(),
+      assertEquals(expectedTableEntries.get(i).getPlayed(),
           resultedTableEntries.get(i).getPlayed());
-      Assert
-          .assertEquals(expectedTableEntries.get(i).getWon(), resultedTableEntries.get(i).getWon());
-      Assert.assertEquals(expectedTableEntries.get(i).getDrawn(),
-          resultedTableEntries.get(i).getDrawn());
-      Assert.assertEquals(expectedTableEntries.get(i).getLost(),
-          resultedTableEntries.get(i).getLost());
-      Assert.assertEquals(expectedTableEntries.get(i).getGoalsFor(),
+      assertEquals(expectedTableEntries.get(i).getWon(), resultedTableEntries.get(i).getWon());
+      assertEquals(expectedTableEntries.get(i).getDrawn(), resultedTableEntries.get(i).getDrawn());
+      assertEquals(expectedTableEntries.get(i).getLost(), resultedTableEntries.get(i).getLost());
+      assertEquals(expectedTableEntries.get(i).getGoalsFor(),
           resultedTableEntries.get(i).getGoalsFor());
-      Assert.assertEquals(expectedTableEntries.get(i).getGoalsAgainst(),
+      assertEquals(expectedTableEntries.get(i).getGoalsAgainst(),
           resultedTableEntries.get(i).getGoalsAgainst());
-      Assert.assertEquals(expectedTableEntries.get(i).getGoalDifference(),
+      assertEquals(expectedTableEntries.get(i).getGoalDifference(),
           resultedTableEntries.get(i).getGoalDifference());
-      Assert.assertEquals(expectedTableEntries.get(i).getPoints(),
+      assertEquals(expectedTableEntries.get(i).getPoints(),
           resultedTableEntries.get(i).getPoints());
     }
   }
 
-  private void printTableResultOnConsole(List<LeagueTableEntry> tableEntries) {
+  private void printTableResultOnConsole(List<LeagueTableEntry> tableEntries)
+  {
+    //@formatter:off
     System.out.printf("%8s %-30s %6s %6s %6s %6s %6s %6s %6s %6s\n",
         "Position", "Club", "Played", "Won", "Drawn", "Lost", "GF", "GA", "GD", "Points");
-    for (int i = 0; i < tableEntries.size(); i++) {
+    for (int i = 0; i < tableEntries.size(); i++)
+    {
       LeagueTableEntry tableEntry = tableEntries.get(i);
 
       System.out.printf("%-8d %-30s %6d %6d %6d %6d %6d %6d %+6d %6d\n",
@@ -295,5 +316,6 @@ public class LeagueTableTests {
           tableEntry.getGoalDifference(),
           tableEntry.getPoints());
     }
+    //@formatter:on
   }
 }

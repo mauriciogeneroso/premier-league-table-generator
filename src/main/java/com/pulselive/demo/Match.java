@@ -1,6 +1,7 @@
 package com.pulselive.demo;
 
-public class Match {
+public class Match
+{
 
   private String homeTeam;
   private String awayTeam;
@@ -8,26 +9,31 @@ public class Match {
   private int awayScore;
 
   public Match(final String homeTeam, final String awayTeam, final int homeScore,
-      final int awayScore) {
+      final int awayScore)
+  {
     this.homeTeam = homeTeam;
     this.awayTeam = awayTeam;
     this.homeScore = homeScore;
     this.awayScore = awayScore;
   }
 
-  public String getHomeTeam() {
+  public String getHomeTeam()
+  {
     return homeTeam;
   }
 
-  public String getAwayTeam() {
+  public String getAwayTeam()
+  {
     return awayTeam;
   }
 
-  public int getHomeScore() {
+  public int getHomeScore()
+  {
     return homeScore;
   }
 
-  public int getAwayScore() {
+  public int getAwayScore()
+  {
     return awayScore;
   }
 

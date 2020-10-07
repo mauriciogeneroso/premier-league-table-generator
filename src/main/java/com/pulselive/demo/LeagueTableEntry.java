@@ -1,6 +1,7 @@
 package com.pulselive.demo;
 
-public class LeagueTableEntry {
+public class LeagueTableEntry
+{
 
   private String teamName;
   private int played;
@@ -13,8 +14,9 @@ public class LeagueTableEntry {
   private int points;
 
   public LeagueTableEntry(final String teamName, final int played, final int won, final int drawn,
-      final int lost,
-      final int goalsFor, final int goalsAgainst, final int goalDifference, final int points) {
+      final int lost, final int goalsFor, final int goalsAgainst, final int goalDifference,
+      final int points)
+  {
     this.teamName = teamName;
     this.played = played;
     this.won = won;
@@ -26,75 +28,93 @@ public class LeagueTableEntry {
     this.points = points;
   }
 
-  public String getTeamName() {
+  public String getTeamName()
+  {
     return teamName;
   }
 
-  public void setTeamName(String teamName) {
+  public void setTeamName(String teamName)
+  {
     this.teamName = teamName;
   }
 
-  public int getPlayed() {
+  public int getPlayed()
+  {
     return played;
   }
 
-  public void setPlayed(int played) {
+  public void setPlayed(int played)
+  {
     this.played = played;
   }
 
-  public int getWon() {
+  public int getWon()
+  {
     return won;
   }
 
-  public void setWon(int won) {
+  public void setWon(int won)
+  {
     this.won = won;
   }
 
-  public int getDrawn() {
+  public int getDrawn()
+  {
     return drawn;
   }
 
-  public void setDrawn(int drawn) {
+  public void setDrawn(int drawn)
+  {
     this.drawn = drawn;
   }
 
-  public int getLost() {
+  public int getLost()
+  {
     return lost;
   }
 
-  public void setLost(int lost) {
+  public void setLost(int lost)
+  {
     this.lost = lost;
   }
 
-  public int getGoalsFor() {
+  public int getGoalsFor()
+  {
     return goalsFor;
   }
 
-  public void setGoalsFor(int goalsFor) {
+  public void setGoalsFor(int goalsFor)
+  {
     this.goalsFor = goalsFor;
   }
 
-  public int getGoalsAgainst() {
+  public int getGoalsAgainst()
+  {
     return goalsAgainst;
   }
 
-  public void setGoalsAgainst(int goalsAgainst) {
+  public void setGoalsAgainst(int goalsAgainst)
+  {
     this.goalsAgainst = goalsAgainst;
   }
 
-  public int getGoalDifference() {
+  public int getGoalDifference()
+  {
     return goalDifference;
   }
 
-  public void setGoalDifference(int goalDifference) {
+  public void setGoalDifference(int goalDifference)
+  {
     this.goalDifference = goalDifference;
   }
 
-  public int getPoints() {
+  public int getPoints()
+  {
     return points;
   }
 
-  public void setPoints(int points) {
+  public void setPoints(int points)
+  {
     this.points = points;
   }
 

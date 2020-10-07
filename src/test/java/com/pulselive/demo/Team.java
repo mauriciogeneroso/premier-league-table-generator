@@ -1,6 +1,8 @@
 package com.pulselive.demo;
 
-public enum Team {
+public enum Team
+{
+  //@formatter:off
   ARSENAL("Arsenal"),
   ASTON_VILLA("Aston Villa"),
   BRIGHTON("Brighton And Hove Albion"),
@@ -21,14 +23,17 @@ public enum Team {
   WEST_BROM("West Bromwich Albion"),
   WEST_HAM("West Ham United"),
   WOLVES("Wolverhampton Wanderes");
+  //@formatter:on
 
   private String name;
 
-  Team(String name) {
+  Team(String name)
+  {
     this.name = name;
   }
 
-  public String getName() {
+  public String getName()
+  {
     return name;
   }
 }
