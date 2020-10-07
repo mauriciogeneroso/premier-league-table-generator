@@ -25,7 +25,7 @@ In undertaking this task, please consider the following:
 ---
 # Solution and explanation
 
-### What is necessary for run the project
+### What is necessary to run the project
 
 - Java 8 (I'm using Java 14 in my laptop)
 - Gradle 6.3 (but it's possible use the file ./gradlew in this project)
