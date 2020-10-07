@@ -10,7 +10,7 @@ import org.junit.Test;
 public class LeagueTableTests
 {
 
-  private static final boolean PRINT_TABLE_ON_CONSOLE = true;
+  private static final boolean PRINT_TABLE_ON_CONSOLE = false;
 
   /**
    * The data for this test was got from the official Premier league website available in these
