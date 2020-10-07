@@ -20,11 +20,13 @@ public class LeagueTableUtilityTests
             new Match(Team.FULHAM.getName(), Team.LEEDS.getName(), 0, 0),
             new Match(Team.MAN_UTD.getName(), Team.MAN_CITY.getName(), 0, 0));
 
+    int expectedTeamsAmount = 5;
+
     // Act
     List<String> teamNames = LeagueTableUtility.getUniqueTeamNames(matches);
 
     // Assert
-    assertEquals(5, teamNames.size());
+    assertEquals(expectedTeamsAmount, teamNames.size());
     assertTrue(teamNames.contains(Team.LIVERPOOL.getName()));
     assertTrue(teamNames.contains(Team.FULHAM.getName()));
     assertTrue(teamNames.contains(Team.LEEDS.getName()));
@@ -42,11 +44,13 @@ public class LeagueTableUtilityTests
             new Match(Team.FULHAM.getName(), Team.LEEDS.getName(), 0, 0),
             new Match(Team.MAN_UTD.getName(), Team.MAN_CITY.getName(), 0, 0));
 
+    int expectedAmountOfPlayedMatches = 2;
+
     // Act
     int played = LeagueTableUtility.getPlayed(matches, Team.LIVERPOOL.getName());
 
     // Assert
-    assertEquals(2, played);
+    assertEquals(expectedAmountOfPlayedMatches, played);
   }
 
   @Test
@@ -60,11 +64,13 @@ public class LeagueTableUtilityTests
             new Match(Team.SOUTHAMPTON.getName(), Team.LIVERPOOL.getName(), 2, 1),
             new Match(Team.SPURS.getName(), Team.LIVERPOOL.getName(), 1, 0));
 
+    int expectedAmountOfWonMatches = 2;
+
     // Act
     int won = LeagueTableUtility.getWon(matches, Team.LIVERPOOL.getName());
 
     // Assert
-    assertEquals(2, won);
+    assertEquals(expectedAmountOfWonMatches, won);
   }
 
   @Test
@@ -78,11 +84,13 @@ public class LeagueTableUtilityTests
             new Match(Team.SOUTHAMPTON.getName(), Team.LIVERPOOL.getName(), 0, 0),
             new Match(Team.SPURS.getName(), Team.LIVERPOOL.getName(), 0, 0));
 
+    int expectedAmountOfDrawnMatches = 4;
+
     // Act
     int drawn = LeagueTableUtility.getDrawn(matches, Team.LIVERPOOL.getName());
 
     // Assert
-    assertEquals(4, drawn);
+    assertEquals(expectedAmountOfDrawnMatches, drawn);
   }
 
   @Test
@@ -96,11 +104,13 @@ public class LeagueTableUtilityTests
             new Match(Team.SOUTHAMPTON.getName(), Team.LIVERPOOL.getName(), 1, 2),
             new Match(Team.SPURS.getName(), Team.LIVERPOOL.getName(), 0, 1));
 
+    int expectedAmountOfLostMatches = 3;
+
     // Act
     int lost = LeagueTableUtility.getLost(matches, Team.LIVERPOOL.getName());
 
     // Assert
-    assertEquals(3, lost);
+    assertEquals(expectedAmountOfLostMatches, lost);
   }
 
   @Test
@@ -114,11 +124,13 @@ public class LeagueTableUtilityTests
             new Match(Team.SOUTHAMPTON.getName(), Team.LIVERPOOL.getName(), 1, 1),
             new Match(Team.SPURS.getName(), Team.LIVERPOOL.getName(), 2, 2));
 
+    int expectedAmountOfGoalsFor = 10;
+
     // Act
     int goalsFor = LeagueTableUtility.getGoalsFor(matches, Team.LIVERPOOL.getName());
 
     // Assert
-    assertEquals(10, goalsFor);
+    assertEquals(expectedAmountOfGoalsFor, goalsFor);
   }
 
   @Test
@@ -132,10 +144,12 @@ public class LeagueTableUtilityTests
             new Match(Team.SOUTHAMPTON.getName(), Team.LIVERPOOL.getName(), 1, 1),
             new Match(Team.SPURS.getName(), Team.LIVERPOOL.getName(), 2, 2));
 
+    int expectedAmountOfGoalsAgainst = 9;
+
     // Act
     int goalsAgainst = LeagueTableUtility.getGoalsAgainst(matches, Team.LIVERPOOL.getName());
 
     // Assert
-    assertEquals(9, goalsAgainst);
+    assertEquals(expectedAmountOfGoalsAgainst, goalsAgainst);
   }
 }
