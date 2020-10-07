@@ -90,7 +90,7 @@ About the small methods:
 ### Considerations
 
 * I kept the small methods inside the `LeagueTable` class to keep the structure that was sent. 
-   * Could be created a utility class with these methods to become these methods public and create unit tests to ensure more code coverage in the tests. I created an alternative application with this change to express what I thought, this application can be accessible in the file alternative_app.zip. But I'm delivering this alternative application for just express another form to resolve this problem that allows creating more unit tests with public methods.
+   * Could be created a utility class with these methods to become these methods public and create unit tests to ensure more code coverage in the tests. I created an alternative application with this change to express what I thought, this application can be accessible in the file alternative_solution.zip. But I'm delivering this alternative application for just express another form to resolve this problem that allows creating more unit tests with public methods.
    
 ### Tests
 
