@@ -39,31 +39,34 @@ Each method has a unique responsibility respecting the DRY pattern (Don't repeat
 The method `LeagueTable.getTableEntries()` was implemented calling the small methods that return only one information as said. Below the implementation:
 
 ```
-public List<LeagueTableEntry> getTableEntries() {
-    List<String> teamNames = getUniqueTeamNames();
-    List<LeagueTableEntry> leagueTableEntries = new ArrayList<>();
+public List<LeagueTableEntry> getTableEntries()
+{
+  List<String> teamNames = getUniqueTeamNames();
+  List<LeagueTableEntry> leagueTableEntries = new ArrayList<>();
 
-    for (String teamName : teamNames) {
-      int played = getPlayed(teamName);
-      int won = getWon(teamName);
-      int drawn = getDrawn(teamName);
-      int lost = getLost(teamName);
-      int goalsFor = getGoalsFor(teamName);
-      int goalsAgainst = getGoalsAgainst(teamName);
-      int goalDifference = goalsFor - goalsAgainst;
-      int points = (won * 3) + drawn;
+  for (String teamName : teamNames)
+  {
+    int played = getPlayed(teamName);
+    int won = getWon(teamName);
+    int drawn = getDrawn(teamName);
+    int lost = getLost(teamName);
+    int goalsFor = getGoalsFor(teamName);
+    int goalsAgainst = getGoalsAgainst(teamName);
+    int goalDifference = goalsFor - goalsAgainst;
+    int points = (won * 3) + drawn;
 
-      leagueTableEntries.add(new LeagueTableEntry(
-          teamName, played, won, drawn, lost, goalsFor, goalsAgainst, goalDifference, points));
-    }
-
-    leagueTableEntries.sort(Comparator.comparing(LeagueTableEntry::getPoints).reversed()
-        .thenComparing(LeagueTableEntry::getGoalDifference, Comparator.reverseOrder())
-        .thenComparing(LeagueTableEntry::getGoalsFor, Comparator.reverseOrder())
-        .thenComparing(LeagueTableEntry::getTeamName));
-
-    return leagueTableEntries;
+    leagueTableEntries.add(
+        new LeagueTableEntry(teamName, played, won, drawn, lost, goalsFor, goalsAgainst,
+            goalDifference, points));
   }
+
+  leagueTableEntries.sort(Comparator.comparing(LeagueTableEntry::getPoints).reversed()
+      .thenComparing(LeagueTableEntry::getGoalDifference, Comparator.reverseOrder())
+      .thenComparing(LeagueTableEntry::getGoalsFor, Comparator.reverseOrder())
+      .thenComparing(LeagueTableEntry::getTeamName));
+
+  return leagueTableEntries;
+}
 ```
 An important thing about this method is that all variables were named to be clean and easy for other developers to take a look and understand the code.
 
@@ -74,10 +77,16 @@ Step-by-step:
       * The strategy to order the table was to use the `sort` method from `List`. Inside this method is used `Arrays.sort()` that has a stable, adaptive, and iterative mergesort.
 
 ---
-
 About the small methods: 
 
 * `getUniqueTeamNames`: This method uses a flatMap to join the team names from home and away and return the names unduplicated.
 * `getPlayed`: This is a simple method to return the number of matches that a team played.
 * `getWon`, `getDrawn` and `getLost`: These methods are similar and filter and return the amount of won, drawn and lost.
 * `getGoalsFor` and `getGoalsAgainst`: These methods are similar and get the goals for and goals against.
+
+---
+### Considerations
+
+* I kept the small methods inside the `LeagueTable` class to keep the structure that was sent. 
+   * Could be created a utility class with these methods to become these methods public and create unit tests to ensure more code coverage in the tests. I created an alternative application with this change to express what I thought, this application can be accessible in the file alternative_app.zip.
+   
