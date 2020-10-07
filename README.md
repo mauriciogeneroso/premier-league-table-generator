@@ -1,6 +1,6 @@
 # Pulselive - interview: League table generator
 
-### Task requirements
+### Task details
 
 Consider a league table for football. Each team plays a number of matches and the results
 of each match build the table. Given the code attached as a starting point build
