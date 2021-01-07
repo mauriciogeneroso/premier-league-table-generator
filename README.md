@@ -1,4 +1,4 @@
-# Pulselive - interview: League table generator
+# League table generator
 
 ### Task details
 
