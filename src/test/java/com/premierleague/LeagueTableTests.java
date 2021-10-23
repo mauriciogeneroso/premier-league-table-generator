@@ -1,12 +1,12 @@
 package com.premierleague;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class LeagueTableTests {
 
@@ -23,7 +23,7 @@ public class LeagueTableTests {
     public void shouldHasTheOfficialResult() {
         // Arrange
         //@formatter:off
-        List<Match> matches = Arrays.asList(
+        var matches = Arrays.asList(
                 new Match(Team.WEST_HAM.getName(), Team.NEWCASTLE.getName(), 0, 2),
                 new Match(Team.LIVERPOOL.getName(), Team.LEEDS.getName(), 4, 3),
                 new Match(Team.CRYSTAL_PALACE.getName(), Team.SOUTHAMPTON.getName(), 1, 0),
@@ -74,7 +74,7 @@ public class LeagueTableTests {
                 new Match(Team.LEICESTER.getName(), Team.WEST_HAM.getName(), 0, 3)
         );
 
-        List<LeagueTableEntry> expectedTableEntries = Arrays.asList(
+        var expectedTableEntries = Arrays.asList(
                 new LeagueTableEntry(
                         Team.EVERTON.getName(), 4, 4, 0, 0, 12, 5, 7, 12),
                 new LeagueTableEntry(
@@ -118,10 +118,10 @@ public class LeagueTableTests {
         );
         //@formatter:on
 
-        LeagueTable leagueTable = new LeagueTable(matches);
+        var leagueTable = new LeagueTable(matches);
 
         // Act
-        List<LeagueTableEntry> resultedTableEntries = leagueTable.getTableEntries();
+        var resultedTableEntries = leagueTable.getTableEntries();
 
         // Assert
         assertResultedTableEntriesWithExpectedTableEntries(expectedTableEntries, resultedTableEntries);
@@ -131,7 +131,7 @@ public class LeagueTableTests {
     public void shouldOrderLeagueTableByTotalPoints() {
         // Arrange
         //@formatter:off
-        List<Match> matches = Arrays.asList(
+        var matches = Arrays.asList(
                 new Match(Team.ARSENAL.getName(), Team.LIVERPOOL.getName(), 0, 3),
                 new Match(Team.LIVERPOOL.getName(), Team.FULHAM.getName(), 3, 1),
                 new Match(Team.LIVERPOOL.getName(), Team.SOUTHAMPTON.getName(), 1, 0),
@@ -139,7 +139,7 @@ public class LeagueTableTests {
                 new Match(Team.SOUTHAMPTON.getName(), Team.ARSENAL.getName(), 2, 2)
         );
 
-        List<LeagueTableEntry> expectedTableEntries = Arrays.asList(
+        var expectedTableEntries = Arrays.asList(
                 new LeagueTableEntry(
                         Team.LIVERPOOL.getName(), 3, 3, 0, 0, 7, 1, 6, 9),
                 new LeagueTableEntry(
@@ -151,10 +151,10 @@ public class LeagueTableTests {
         );
         //@formatter:on
 
-        LeagueTable leagueTable = new LeagueTable(matches);
+        var leagueTable = new LeagueTable(matches);
 
         // Act
-        List<LeagueTableEntry> resultedTableEntries = leagueTable.getTableEntries();
+        var resultedTableEntries = leagueTable.getTableEntries();
 
         // Assert
         assertResultedTableEntriesWithExpectedTableEntries(expectedTableEntries, resultedTableEntries);
@@ -164,14 +164,14 @@ public class LeagueTableTests {
     public void shouldOrderLeagueTableByGoalDifference() {
         // Arrange
         //@formatter:off
-        List<Match> matches = Arrays.asList(
+        var matches = Arrays.asList(
                 new Match(Team.WEST_HAM.getName(), Team.MAN_UTD.getName(), 2, 0),
                 new Match(Team.WEST_HAM.getName(), Team.FULHAM.getName(), 1, 0),
                 new Match(Team.SHEFFIELD_UTD.getName(), Team.MAN_UTD.getName(), 1, 0),
                 new Match(Team.SHEFFIELD_UTD.getName(), Team.FULHAM.getName(), 1, 0)
         );
 
-        List<LeagueTableEntry> expectedTableEntries = Arrays.asList(
+        var expectedTableEntries = Arrays.asList(
                 new LeagueTableEntry(
                         Team.WEST_HAM.getName(), 2, 2, 0, 0, 3, 0, 3, 6),
                 new LeagueTableEntry(
@@ -183,10 +183,10 @@ public class LeagueTableTests {
         );
         //@formatter:on
 
-        LeagueTable leagueTable = new LeagueTable(matches);
+        var leagueTable = new LeagueTable(matches);
 
         // Act
-        List<LeagueTableEntry> resultedTableEntries = leagueTable.getTableEntries();
+        var resultedTableEntries = leagueTable.getTableEntries();
 
         // Assert
         assertResultedTableEntriesWithExpectedTableEntries(expectedTableEntries, resultedTableEntries);
@@ -196,14 +196,14 @@ public class LeagueTableTests {
     public void shouldOrderLeagueTableByGoalsScored() {
         // Arrange
         //@formatter:off
-        List<Match> matches = Arrays.asList(
+        var matches = Arrays.asList(
                 new Match(Team.MAN_UTD.getName(), Team.WEST_HAM.getName(), 3, 1),
                 new Match(Team.MAN_UTD.getName(), Team.FULHAM.getName(), 2, 1),
                 new Match(Team.SHEFFIELD_UTD.getName(), Team.WEST_HAM.getName(), 2, 1),
                 new Match(Team.SHEFFIELD_UTD.getName(), Team.FULHAM.getName(), 2, 0)
         );
 
-        List<LeagueTableEntry> expectedTableEntries = Arrays.asList(
+        var expectedTableEntries = Arrays.asList(
                 new LeagueTableEntry(
                         Team.MAN_UTD.getName(), 2, 2, 0, 0, 5, 2, 3, 6),
                 new LeagueTableEntry(
@@ -215,10 +215,10 @@ public class LeagueTableTests {
         );
         //@formatter:on
 
-        LeagueTable leagueTable = new LeagueTable(matches);
+        var leagueTable = new LeagueTable(matches);
 
         // Act
-        List<LeagueTableEntry> resultedTableEntries = leagueTable.getTableEntries();
+        var resultedTableEntries = leagueTable.getTableEntries();
 
         // Assert
         assertResultedTableEntriesWithExpectedTableEntries(expectedTableEntries, resultedTableEntries);
@@ -228,14 +228,14 @@ public class LeagueTableTests {
     public void shouldOrderLeagueTableByTeamName() {
         // Arrange
         //@formatter:off
-        List<Match> matches = Arrays.asList(
+        var matches = Arrays.asList(
                 new Match(Team.FULHAM.getName(), Team.WEST_HAM.getName(), 2, 0),
                 new Match(Team.FULHAM.getName(), Team.ARSENAL.getName(), 2, 0),
                 new Match(Team.MAN_CITY.getName(), Team.WEST_HAM.getName(), 2, 0),
                 new Match(Team.MAN_CITY.getName(), Team.ARSENAL.getName(), 2, 0)
         );
 
-        List<LeagueTableEntry> expectedTableEntries = Arrays.asList(
+        var expectedTableEntries = Arrays.asList(
                 new LeagueTableEntry(
                         Team.FULHAM.getName(), 2, 2, 0, 0, 4, 0, 4, 6),
                 new LeagueTableEntry(
@@ -247,10 +247,10 @@ public class LeagueTableTests {
         );
         //@formatter:on
 
-        LeagueTable leagueTable = new LeagueTable(matches);
+        var leagueTable = new LeagueTable(matches);
 
         // Act
-        List<LeagueTableEntry> resultedTableEntries = leagueTable.getTableEntries();
+        var resultedTableEntries = leagueTable.getTableEntries();
 
         // Assert
         assertResultedTableEntriesWithExpectedTableEntries(expectedTableEntries, resultedTableEntries);
@@ -267,7 +267,7 @@ public class LeagueTableTests {
             printTableResultOnConsole(resultedTableEntries);
         }
 
-        for (int i = 0; i < expectedTableEntries.size(); i++) {
+        for (var i = 0; i < expectedTableEntries.size(); i++) {
             assertEquals(expectedTableEntries.get(i).getTeamName(),
                     resultedTableEntries.get(i).getTeamName());
             assertEquals(expectedTableEntries.get(i).getPlayed(),
@@ -290,7 +290,7 @@ public class LeagueTableTests {
         //@formatter:off
         System.out.printf("%8s %-30s %6s %6s %6s %6s %6s %6s %6s %6s\n",
                 "Position", "Club", "Played", "Won", "Drawn", "Lost", "GF", "GA", "GD", "Points");
-        for (int i = 0; i < tableEntries.size(); i++) {
+        for (var i = 0; i < tableEntries.size(); i++) {
             LeagueTableEntry tableEntry = tableEntries.get(i);
 
             System.out.printf("%-8d %-30s %6d %6d %6d %6d %6d %6d %+6d %6d\n",
