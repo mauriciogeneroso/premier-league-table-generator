@@ -27,14 +27,14 @@ In undertaking this task, please consider the following:
 
 ### What is necessary to run the project
 
-- Java 8 (I'm using Java 14 in my laptop)
-- Gradle 6.3 (but it's possible use the file ./gradlew in this project)
+- Java 8
+- Gradle 6.3 or newer
 
-Run the tests with: `./gradlew test`
+The project has no entry point, so you can run the tests to check the implementation through: `./gradlew test`
 
 ### Explanation
 
-All code was implemented inside the class `LeagueTable` keeping in mind don't change the structure that was sent.
+All code was implemented inside the class `LeagueTable` keeping in mind don't change the original code structure.
 It was created some private and small methods with separated behaviors thinking in clean, future reuse and extension of code.
 Each method has a unique responsibility respecting the DRY pattern (Don't repeat yourself) and if in the future information is needed about the matches, the methods can be used.
 
