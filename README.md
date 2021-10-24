@@ -87,11 +87,6 @@ About the small methods:
 * `getGoalsFor` and `getGoalsAgainst`: These methods are similar and get the goals for and goals against.
 
 ---
-### Considerations
-
-* I kept the small methods inside the `LeagueTable` class to keep the structure that was sent. 
-   * Could be created a utility class with these methods to become these methods public and create unit tests to ensure more code coverage in the tests. I created an alternative application with this change to express what I thought, this application can be accessible in the file alternative_solution.zip. But I'm delivering this alternative application for just express another form to resolve this problem that allows creating more unit tests with public methods.
-   
 ### Tests
 
 It was included in `build.gradle` the `jacoco plugin` to see the test coverage and test results.
