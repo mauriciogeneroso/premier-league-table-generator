@@ -17,7 +17,7 @@ public class LeagueTableTests {
      * links: https://www.premierleague.com/tables and https://www.premierleague.com/results
      * <p>
      * e.g: These results will be changed on the website because new matches will be played. These
-     * results was from 6th October.
+     * results were from 6th October.
      */
     @Test
     public void shouldHasTheOfficialResult() {

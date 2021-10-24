@@ -1,14 +1,14 @@
 package com.premierleague;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LeagueTable {
 
-    private List<Match> matches;
+    private final static int WIN_POINTS = 3;
+    private final static int DRAWN_POINTS = 1;
+
+    private final List<Match> matches;
 
     public LeagueTable(final List<Match> matches) {
         this.matches = matches;
@@ -20,103 +20,56 @@ public class LeagueTable {
      * @return
      */
     public List<LeagueTableEntry> getTableEntries() {
-        List<String> teamNames = getUniqueTeamNames();
-        List<LeagueTableEntry> leagueTableEntries = new ArrayList<>();
+        Map<String, LeagueTableEntry> leagueTableEntries = new HashMap<>();
 
-        for (String teamName : teamNames) {
-            int played = getPlayed(teamName);
-            int won = getWon(teamName);
-            int drawn = getDrawn(teamName);
-            int lost = getLost(teamName);
-            int goalsFor = getGoalsFor(teamName);
-            int goalsAgainst = getGoalsAgainst(teamName);
-            int goalDifference = goalsFor - goalsAgainst;
-            int points = (won * 3) + drawn;
+        matches.forEach(match -> {
+            var homeTeam = getOrCreate(leagueTableEntries, match.getHomeTeam());
+            var awayTeam = getOrCreate(leagueTableEntries, match.getAwayTeam());
 
-            leagueTableEntries.add(
-                    new LeagueTableEntry(teamName, played, won, drawn, lost, goalsFor, goalsAgainst,
-                            goalDifference, points));
+            homeTeam.increasePlayed();
+            awayTeam.increasePlayed();
+            countScores(match, homeTeam, awayTeam);
+            countMatchResult(match, homeTeam, awayTeam);
+        });
+
+        return leagueTableEntries.values().stream()
+                .sorted(Comparator.comparing(LeagueTableEntry::getPoints).reversed()
+                        .thenComparing(LeagueTableEntry::getGoalDifference, Comparator.reverseOrder())
+                        .thenComparing(LeagueTableEntry::getGoalsFor, Comparator.reverseOrder())
+                        .thenComparing(LeagueTableEntry::getTeamName)).collect(Collectors.toList());
+    }
+
+    private LeagueTableEntry getOrCreate(Map<String, LeagueTableEntry> leagueTableEntries, String teamName) {
+        var leagueTableEntry = leagueTableEntries.get(teamName);
+        if (leagueTableEntry != null) {
+            return leagueTableEntry;
         }
 
-        leagueTableEntries.sort(Comparator.comparing(LeagueTableEntry::getPoints).reversed()
-                .thenComparing(LeagueTableEntry::getGoalDifference, Comparator.reverseOrder())
-                .thenComparing(LeagueTableEntry::getGoalsFor, Comparator.reverseOrder())
-                .thenComparing(LeagueTableEntry::getTeamName));
-
-        return leagueTableEntries;
+        leagueTableEntries.put(teamName, new LeagueTableEntry(teamName));
+        return leagueTableEntries.get(teamName);
     }
 
-    private List<String> getUniqueTeamNames() {
-        //@formatter:off
-        return matches.stream()
-                .flatMap(t -> Stream.of(t.getHomeTeam(), t.getAwayTeam()))
-                .distinct()
-                .collect(Collectors.toList());
-        //@formatter:on
+    private void countScores(Match match, LeagueTableEntry homeTeam, LeagueTableEntry awayTeam) {
+        homeTeam.increaseGoalsFor(match.getHomeScore());
+        awayTeam.increaseGoalsFor(match.getAwayScore());
+        homeTeam.increaseGoalsAgainst(match.getAwayScore());
+        awayTeam.increaseGoalsAgainst(match.getHomeScore());
     }
 
-    private int getPlayed(String teamName) {
-        //@formatter:off
-        return (int) matches.stream()
-                .filter(t -> teamName.equals(t.getHomeTeam()) || teamName.equals(t.getAwayTeam()))
-                .count();
-        //@formatter:off
-    }
-
-    private int getWon(String teamName) {
-        //@formatter:off
-        return (int) matches.stream()
-                .filter(t -> (teamName.equals(t.getHomeTeam()) && t.getHomeScore() > t.getAwayScore())
-                        || (teamName.equals(t.getAwayTeam()) && t.getHomeScore() < t.getAwayScore()))
-                .count();
-        //@formatter:on
-    }
-
-    private int getDrawn(String teamName) {
-        //@formatter:off
-        return (int) matches.stream()
-                .filter(t -> (teamName.equals(t.getHomeTeam()) || teamName.equals(t.getAwayTeam()))
-                        && t.getHomeScore() == t.getAwayScore())
-                .count();
-        //@formatter:on
-    }
-
-    private int getLost(String teamName) {
-        //@formatter:off
-        return (int) matches.stream()
-                .filter(t -> (teamName.equals(t.getHomeTeam()) && t.getHomeScore() < t.getAwayScore())
-                        || (teamName.equals(t.getAwayTeam()) && t.getHomeScore() > t.getAwayScore()))
-                .count();
-        //@formatter:on
-    }
-
-    private int getGoalsFor(String teamName) {
-        //@formatter:off
-        return matches.stream()
-                .filter(t -> teamName.equals(t.getHomeTeam()) || teamName.equals(t.getAwayTeam()))
-                .map(t ->
-                {
-                    if (teamName.equals(t.getHomeTeam())) {
-                        return t.getHomeScore();
-                    }
-                    return t.getAwayScore();
-                })
-                .reduce(0, Integer::sum);
-        //@formatter:on
-    }
-
-    private int getGoalsAgainst(String teamName) {
-        //@formatter:off
-        return matches.stream()
-                .filter(t -> teamName.equals(t.getHomeTeam()) || teamName.equals(t.getAwayTeam()))
-                .map(t ->
-                {
-                    if (teamName.equals(t.getHomeTeam())) {
-                        return t.getAwayScore();
-                    }
-                    return t.getHomeScore();
-                })
-                .reduce(0, Integer::sum);
-        //@formatter:on
+    private void countMatchResult(Match match, LeagueTableEntry homeTeam, LeagueTableEntry awayTeam) {
+        if (match.getHomeScore() > match.getAwayScore()) {
+            homeTeam.increaseWon();
+            homeTeam.increasePoints(WIN_POINTS);
+            awayTeam.increaseLost();
+        } else if (match.getHomeScore() < match.getAwayScore()) {
+            homeTeam.increaseLost();
+            awayTeam.increaseWon();
+            awayTeam.increasePoints(WIN_POINTS);
+        } else {
+            homeTeam.increaseDrawn();
+            homeTeam.increasePoints(DRAWN_POINTS);
+            awayTeam.increaseDrawn();
+            awayTeam.increasePoints(DRAWN_POINTS);
+        }
     }
 }
