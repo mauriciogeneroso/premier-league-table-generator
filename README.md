@@ -27,7 +27,7 @@ In undertaking this task, please consider the following:
 
 ### What is necessary to run the project
 
-- Java 8
+- Java 11
 - Gradle 6.3 or newer
 
 The project has no entry point, so you can run the tests to check the implementation through: `./gradlew test`
@@ -35,56 +35,45 @@ The project has no entry point, so you can run the tests to check the implementa
 ### Explanation
 
 All code was implemented inside the class `LeagueTable` keeping in mind don't change the original code structure.
-It was created some private and small methods with separated behaviors thinking in clean, future reuse and extension of code.
-Each method has a unique responsibility respecting the DRY pattern (Don't repeat yourself) and if in the future information is needed about the matches, the methods can be used.
 
-The method `LeagueTable.getTableEntries()` was implemented calling the small methods that return only one information as said. Below implementation:
+The method `LeagueTable.getTableEntries()` was implemented using a HashMap for each team name. Below implementation:
 
 ```
-public List<LeagueTableEntry> getTableEntries()
-{
-  List<String> teamNames = getUniqueTeamNames();
-  List<LeagueTableEntry> leagueTableEntries = new ArrayList<>();
+public List<LeagueTableEntry> getTableEntries() {
+    Map<String, LeagueTableEntry> leagueTableEntries = new HashMap<>();
 
-  for (String teamName : teamNames)
-  {
-    int played = getPlayed(teamName);
-    int won = getWon(teamName);
-    int drawn = getDrawn(teamName);
-    int lost = getLost(teamName);
-    int goalsFor = getGoalsFor(teamName);
-    int goalsAgainst = getGoalsAgainst(teamName);
-    int goalDifference = goalsFor - goalsAgainst;
-    int points = (won * 3) + drawn;
+    matches.forEach(match -> {
+        var homeTeam = getOrCreate(leagueTableEntries, match.getHomeTeam());
+        var awayTeam = getOrCreate(leagueTableEntries, match.getAwayTeam());
 
-    leagueTableEntries.add(
-        new LeagueTableEntry(teamName, played, won, drawn, lost, goalsFor, goalsAgainst,
-            goalDifference, points));
-  }
+        homeTeam.increasePlayed();
+        awayTeam.increasePlayed();
+        countScores(match, homeTeam, awayTeam);
+        countMatchResult(match, homeTeam, awayTeam);
+    });
 
-  leagueTableEntries.sort(Comparator.comparing(LeagueTableEntry::getPoints).reversed()
-      .thenComparing(LeagueTableEntry::getGoalDifference, Comparator.reverseOrder())
-      .thenComparing(LeagueTableEntry::getGoalsFor, Comparator.reverseOrder())
-      .thenComparing(LeagueTableEntry::getTeamName));
-
-  return leagueTableEntries;
+    return leagueTableEntries.values().stream()
+            .sorted(Comparator.comparing(LeagueTableEntry::getPoints).reversed()
+                    .thenComparing(LeagueTableEntry::getGoalDifference, Comparator.reverseOrder())
+                    .thenComparing(LeagueTableEntry::getGoalsFor, Comparator.reverseOrder())
+                    .thenComparing(LeagueTableEntry::getTeamName)).collect(Collectors.toList());
 }
 ```
-An important thing about this method is that all variables were named to be clean and easy for other developers to take a look and understand the code.
+An important thing about this method and class is that all variables were named to be clean and easy for other developers to take a look and understand the code.
 
 Step-by-step:
-   * With a list of matches, it's necessary to know all teams that played at home or away. So, the first step was to call a method to return all team names (unduplicated).
-   * The second step was to go through the list of the team names and verify each match to get each information about that team: the amount of matches played, won, drawn, lost, goals for, goals against. And then with the goals for and goals against, to get the goal difference, I made `goalsFor` minus `goalsAgainst`. And then to get the points were multiplied the amount of won by 3 and plus with total of draws.
-   * After all, in the third step, the sorted rules were applied as required in the task specification: Sort by total points (descending), then by goal difference (descending), then by goals scored (descending), then by team name (in alphabetical order).
-      * The strategy to order the table was to use the `sort` method from `List`. Inside this method is used `Arrays.sort()` that has a stable, adaptive, and iterative mergesort.
+   * With a list of matches, to avoid duplicate values I used the team Name as a Key in a HashMap, so for each Match I pick it up and manage the data around the team using the map.
+   * The second step is increase the number of match for the home team and away team.
+   * Third step is count the scores for and scores against.
+   * Fourth step is count the match result and increase 3 points to the winner, 1 point for each when drawn and no point for who lost the match.
+   * After all, in the fifth step, the sorted rules were applied as required in the task specification: Sort by total points (descending), then by goal difference (descending), then by goals scored (descending), then by team name (in alphabetical order).
 
 ---
 About the small methods: 
 
-* `getUniqueTeamNames`: This method uses a flatMap to join the team names from home and away and return the names unduplicated.
-* `getPlayed`: This is a simple method to return the number of matches that a team played.
-* `getWon`, `getDrawn` and `getLost`: These methods are similar and filter and return the amount of won, draw and lost.
-* `getGoalsFor` and `getGoalsAgainst`: These methods are similar and get the goals for and goals against.
+* `getOrCreate`: Try get the existing team metadata from the map, when it doesn't exist, create a new one and return it.
+* `countScores`: increase the goals for and goals against according the match result.
+* `countMatchResult`: Responsible to check who won the match and set the correct amount of points for each team.
 
 ---
 ### Tests
